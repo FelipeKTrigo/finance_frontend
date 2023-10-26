@@ -29,6 +29,31 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 112, 111, 111),
+      appBar: AppBar(
+          title: const Text("Finanças"),
+          centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 186, 69, 116)),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.white,
+                child: Text(
+                  "seu grafico",
+                  style: TextStyle(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
