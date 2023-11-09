@@ -1,59 +1,67 @@
+import 'package:financial_frontend/LearningDetail.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(const NavigationBarApp());
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  final title = "finances";
+class NavigationBarApp extends StatelessWidget {
+  const NavigationBarApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(title: title),
-    );
+    return const MaterialApp(home: NavigationExample());
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class NavigationExample extends StatefulWidget {
+  const NavigationExample({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<NavigationExample> createState() => _NavigationExampleState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _NavigationExampleState extends State<NavigationExample> {
+  int currentPageIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 112, 111, 111),
-      appBar: AppBar(
-          title: const Text("Finanças"),
-          centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 186, 69, 116)),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.white,
-                child: Text(
-                  "seu grafico",
-                  style: TextStyle(color: Colors.black),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (int index) {
+          setState(() {
+            currentPageIndex = index;
+          });
+        },
+        selectedIndex: currentPageIndex,
+
+        destinations: const <Widget>[
+          NavigationDestination(
+            selectedIcon: Icon(Icons.account_circle),
+            icon: Icon(Icons.account_circle_outlined),
+            label: 'account',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.home),
+            icon: Icon(Icons.home_outlined),
+            label: 'Home',
+          ),
+          NavigationDestination(
+            selectedIcon: Icon(Icons.school),
+            icon: Icon(Icons.school_outlined),
+            label: 'Learning',
+          ),
+        ],
       ),
+      body: <Widget>[
+        Container(
+          child: const Text('Page 1'),
+        ),
+        Container(
+          child: const Text('Page 2'),
+        ),
+        Container(
+          child: LearningDetail(),
+        ),
+      ][currentPageIndex],
     );
   }
 }
