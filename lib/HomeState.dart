@@ -22,11 +22,8 @@ class HomeState extends State<HomeDetail> {
           Expanded(child: PieChart(dataMap: dataMap, baseChartColor: Colors.grey)),
           ElevatedButton(onPressed: () {
             setState(() {
-              dataMap.forEach((key, value) {
-                if(key=="leite"){
-                  value++;
-                }
-              });
+              String key = "leite";
+              dataMap.update(key, (value) => value+1);
             });
           },child: Text("Add"),)
         ]),
