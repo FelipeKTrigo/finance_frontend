@@ -34,7 +34,6 @@ class _NavigationExampleState extends State<NavigationExample> {
           });
         },
         selectedIndex: currentPageIndex,
-
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.account_circle),
