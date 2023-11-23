@@ -1,3 +1,5 @@
+import 'package:financial_frontend/AccountDetail.dart';
+import 'package:financial_frontend/HomeDetail.dart';
 import 'package:financial_frontend/LearningDetail.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +22,7 @@ class NavigationExample extends StatefulWidget {
 }
 
 class _NavigationExampleState extends State<NavigationExample> {
-  int currentPageIndex = 0;
+  int currentPageIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +54,9 @@ class _NavigationExampleState extends State<NavigationExample> {
         ],
       ),
       body: <Widget>[
-        Container(
-          child: const Text('Page 1'),
-        ),
-        Container(
-          child: const Text('Page 2'),
-        ),
-        Container(
-          child: LearningDetail(),
-        ),
+        AccountDetail(),
+        HomeDetail(),
+        LearningDetail(),
       ][currentPageIndex],
     );
   }

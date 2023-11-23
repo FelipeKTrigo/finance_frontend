@@ -6,7 +6,7 @@ class LearningState extends State<LearningDetail>{
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("pagina learning"),
+        child: Text("LEARNING"),
       )
     );
   }
