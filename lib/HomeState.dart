@@ -1,4 +1,6 @@
 import 'package:financial_frontend/HomeDetail.dart';
+import 'package:financial_frontend/backendDomain/ClientRequestDTO.dart';
+import 'package:financial_frontend/queryData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -24,6 +26,8 @@ class HomeState extends State<HomeDetail> {
             setState(() {
               String key = "leite";
               dataMap.update(key, (value) => value+1);
+              queryData.fetchdata("/v1/customer/save", ClientRequestDTO("felipe", 5000.0));
+              //queryData.list();
             });
           },child: Text("Add"),)
         ]),
