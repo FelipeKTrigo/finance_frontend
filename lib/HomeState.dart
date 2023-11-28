@@ -1,36 +1,36 @@
 import 'package:financial_frontend/HomeDetail.dart';
-import 'package:financial_frontend/backendDomain/ClientRequestDTO.dart';
-import 'package:financial_frontend/queryData.dart';
+
+import 'package:financial_frontend/QueryData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class HomeState extends State<HomeDetail> {
-  Map<String, double> dataMap = {
-    "Flutter": 5,
-    "React": 3,
-    "Xamarin": 2,
-    "Ionic": 2,
-    "almoço": 34,
-    "picanha": 90,
-    "leite": 1
-  };
+
+  late Future<Map<String,double>> dataMap;
+
+  @override
+  void initState() {
+    dataMap = QueryData.listSpents();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(children: [
-          Text("Grafico", style: TextStyle(fontSize: 20)),
-          Expanded(child: PieChart(dataMap: dataMap, baseChartColor: Colors.grey)),
-          ElevatedButton(onPressed: () {
-            setState(() {
-              String key = "leite";
-              dataMap.update(key, (value) => value+1);
-              queryData.fetchdata("/v1/customer/save", ClientRequestDTO("felipe", 5000.0));
-              //queryData.list();
-            });
-          },child: Text("Add"),)
-        ]),
+        child: FutureBuilder<Map<String, double>>(
+          future: QueryData.listSpents(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError || !snapshot.hasData) {
+              return Text('Erro ao carregar os dados, Error:${snapshot.error}');
+            } else {
+              return PieChart(
+                dataMap: snapshot.requireData ,baseChartColor: Colors.grey);
+            }
+          },
+        ),
       ),
     );
   }
