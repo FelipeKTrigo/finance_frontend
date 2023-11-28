@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 class QueryData {
 
   static Future<Map<String, double>> listSpents() async {
-    List response = jsonDecode(await http
+    List response = jsonDecode(utf8.decode(await http
         .get(Uri.parse("http://localhost:8080/v1/spent/list"))
-        .then((value) => value.body));
+        .then((value) => value.bodyBytes)));
     print(response);
     List<MapEntry<String,double>> list = [];
     response.forEach((object) {
