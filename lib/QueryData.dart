@@ -10,9 +10,13 @@ class QueryData {
         .then((value) => value.bodyBytes)));
     print(response);
     List<MapEntry<String,double>> list = [];
+    double total = 0;
     response.forEach((object) {
+      total = total + object['percentage'];
       list.add(MapEntry(object['name'], object['percentage']));
     });
+    total = 100 - total;
+    list.add(MapEntry('livre', total));
     print(list);
     Map<String,double> a = {
       ...Map.fromEntries(list)
