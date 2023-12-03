@@ -1,4 +1,4 @@
-import 'package:financial_frontend/LearningState.dart';
+import 'package:financial_frontend/learning/LearningState.dart';
 import 'package:flutter/widgets.dart';
 
 class LearningDetail extends StatefulWidget{

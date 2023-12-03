@@ -1,4 +1,4 @@
-import 'package:financial_frontend/AccountState.dart';
+import 'package:financial_frontend/account/AccountState.dart';
 import 'package:flutter/widgets.dart';
 
 class AccountDetail extends StatefulWidget{

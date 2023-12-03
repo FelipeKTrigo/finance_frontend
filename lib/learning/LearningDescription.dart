@@ -14,14 +14,14 @@ class LearningDescription extends StatelessWidget {
         backgroundColor: Colors.green[800],
         title: Column(children: [Text(it.title,style: const TextStyle(
             fontSize: 34
-        ),softWrap: true), Text("By ${it.author}",style: const TextStyle(
+        ),softWrap: true), Text("Por ${it.author}",style: const TextStyle(
             fontSize: 12
         ), softWrap: true)]),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
-          children: [Text(it.text)],
+          children: [Padding(padding: EdgeInsets.all(8), child: Text(it.text))],
         ),
       ),
     );

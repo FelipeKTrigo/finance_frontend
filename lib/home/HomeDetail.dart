@@ -1,4 +1,4 @@
-import 'package:financial_frontend/HomeState.dart';
+import 'package:financial_frontend/home/HomeState.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeDetail extends StatefulWidget{

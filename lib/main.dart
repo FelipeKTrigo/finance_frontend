@@ -1,6 +1,6 @@
-import 'package:financial_frontend/AccountDetail.dart';
-import 'package:financial_frontend/HomeDetail.dart';
-import 'package:financial_frontend/LearningDetail.dart';
+import 'package:financial_frontend/account/AccountDetail.dart';
+import 'package:financial_frontend/home/HomeDetail.dart';
+import 'package:financial_frontend/learning/LearningDetail.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const NavigationBarApp());
@@ -38,17 +38,17 @@ class _NavigationExampleState extends State<NavigationExample> {
           NavigationDestination(
             selectedIcon: Icon(Icons.account_circle),
             icon: Icon(Icons.account_circle_outlined),
-            label: 'account',
+            label: 'Conta',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
-            label: 'Home',
+            label: 'Casa',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.school),
             icon: Icon(Icons.school_outlined),
-            label: 'Learning',
+            label: 'Aprender',
           ),
         ],
       ),
