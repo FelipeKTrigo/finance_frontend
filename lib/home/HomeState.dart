@@ -73,18 +73,32 @@ class HomeState extends State<HomeDetail> {
       ])),
     );
   }
+  Widget buildRemovable(Spent s){
+    return Container(padding: EdgeInsets.all(16),alignment: Alignment.center,child: Row(
+      children: [
+        Text(s.name),
+        InkWell(
+          onTap: () {
+            setState(() {
+              QueryData.deleteSpents(context,s.id);
+            });
+          },
+          child: Icon(Icons.close)
+        )
+        ],
+    ));
+  }
 
   Future rmDiag() {
     return showDialog(
         context: context,
-        builder: (context) => SimpleDialog(
-              title: const Text(
-                "REMOVER DESPESAS",
-                softWrap: true,
-                style: TextStyle(fontSize: 20),
-              ),
-              children: [
-                FutureBuilder(
+        builder: (context) => Dialog(
+                child: Center(
+              child: Column(children: [
+                const Expanded(child: Text("REMOVER DESPESAS",softWrap: true,style: TextStyle(
+                  fontSize: 20
+                ))),
+                Expanded(child: Container(alignment: Alignment.center,child: FutureBuilder(
                   future: QueryData.listarSpents(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.done &&
@@ -93,17 +107,16 @@ class HomeState extends State<HomeDetail> {
                           itemCount: snapshot.requireData.length,
                           itemBuilder: (context, index) {
                             Spent s = snapshot.requireData[index];
-                            return Column(
-                              children: [Text(s.name), const Icon(Icons.close)],
-                            );
+                            return buildRemovable(s);
                           });
                     } else {
-                      return const CircularProgressIndicator();
+                      return Container(alignment: Alignment.center,child: const CircularProgressIndicator());
                     }
                   },
-                )
-              ],
-            ));
+                ))),
+                Expanded(child: TextButton(onPressed: cancel, child: const Text("VOLTAR")),)
+              ]),
+            )));
   }
 
   Future showDiag() {
@@ -149,7 +162,7 @@ class HomeState extends State<HomeDetail> {
                 ),
               ),
               actions: [
-                TextButton(onPressed: cancel, child: const Text("CANCELAR")),
+                TextButton(onPressed: cancel, child: const Text("VOLTAR")),
                 TextButton(onPressed: submit, child: const Text("ENVIAR"))
               ],
             ));

@@ -14,7 +14,6 @@ class QueryData<T>{
     List response = jsonDecode(utf8.decode(await http
         .get(Uri.parse("http://localhost:8080/v1/spent/list"))
         .then((value) => value.bodyBytes)));
-    print(response);
     List<MapEntry<String,double>> list = [];
     double total = 0;
     response.forEach((object) {
@@ -23,11 +22,9 @@ class QueryData<T>{
     });
     total = 100 - total;
     list.add(MapEntry('livre', total));
-    print(list);
     Map<String,double> a = {
       ...Map.fromEntries(list)
     };
-    print(a);
     return a;
   }
   static Future<customer> customerGet() async {
@@ -39,6 +36,11 @@ class QueryData<T>{
   void controllerMapping(T obj){
     list.add(obj);
   }
+  static void deleteSpents(context,int id) {
+    final uri = Uri.parse("http://localhost:8080/v1/spent/delete?id=$id");
+    http.delete(uri);
+    Navigator.of(context).pop();
+  }
   Future<Map<String, dynamic>> putSpent() async {
     final queryParameter = {'id': '1'};
     final uri =
@@ -48,7 +50,6 @@ class QueryData<T>{
         headers: {"Content-type": "application/json; charset=utf-8"},
         body: put(list[1] as double, list[0] as String))
         .then((value) => value.body));
-    print(response);
     return response;
   }
   String put(double price, String name) {
@@ -57,12 +58,10 @@ class QueryData<T>{
 
   static Future<List<Spent>> listarSpents() async {
     List response = jsonDecode(utf8.decode(await http
-            .get(Uri.parse("http://localhost:8080/v1/spent/list"))
+        .get(Uri.parse("http://localhost:8080/v1/spent/list"))
         .then((value) => value.bodyBytes)));
-    List<Spent> list = response.map((e){
-      return Spent.fromJson(e);
-    }).toList();
-    print(list.map((element) => element.id).toList());
+    List<Spent> list = response.map((e) => Spent.fromJson(e)).toList();
     return list;
   }
+
 }
