@@ -50,6 +50,7 @@ class QueryData<T>{
         headers: {"Content-type": "application/json; charset=utf-8"},
         body: put(list[1] as double, list[0] as String))
         .then((value) => value.body));
+    list.clear();
     return response;
   }
   String put(double price, String name) {
