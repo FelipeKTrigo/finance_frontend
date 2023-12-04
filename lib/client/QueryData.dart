@@ -64,5 +64,4 @@ class QueryData<T>{
     List<Spent> list = response.map((e) => Spent.fromJson(e)).toList();
     return list;
   }
-
 }
