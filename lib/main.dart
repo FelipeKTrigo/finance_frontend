@@ -10,7 +10,36 @@ class NavigationBarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: NavigationExample());
+    return MaterialApp(
+      home: Router(),
+    );
+  }
+}
+
+class Router extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Scaffold(
+      body: Center(
+          child: Column(children: [
+        Expanded(child: Container(
+            padding: const EdgeInsets.all(16),
+            child: const Text("BEM VINDO", style: TextStyle(fontSize: 20)))),
+        Expanded(child: Container(
+          alignment: Alignment.topCenter,
+          child: ElevatedButton(
+            onPressed: () => entrar(context),
+            child: const Text("ENTRAR", style: TextStyle(fontSize: 20)),
+          ),
+        ),)
+      ])),
+    ));
+  }
+
+  void entrar(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const NavigationExample()));
   }
 }
 
