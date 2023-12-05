@@ -73,20 +73,24 @@ class HomeState extends State<HomeDetail> {
       ])),
     );
   }
-  Widget buildRemovable(Spent s){
-    return Container(padding: EdgeInsets.all(16),alignment: Alignment.center,child: Row(
-      children: [
-        Text(s.name),
-        InkWell(
-          onTap: () {
-            setState(() {
-              QueryData.deleteSpents(context,s.id);
-            });
-          },
-          child: Icon(Icons.close)
-        )
-        ],
-    ));
+
+  Widget buildRemovable(Spent s) {
+    return Container(
+        padding: EdgeInsets.all(16),
+        alignment: Alignment.center,
+        child: Row(
+          children: [
+            Expanded(child: Text(s.name)),
+            Expanded(
+                child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        QueryData.deleteSpents(context, s.id);
+                      });
+                    },
+                    child: Icon(Icons.close, color: Colors.red)))
+          ],
+        ));
   }
 
   Future rmDiag() {
@@ -95,26 +99,37 @@ class HomeState extends State<HomeDetail> {
         builder: (context) => Dialog(
                 child: Center(
               child: Column(children: [
-                const Expanded(child: Text("REMOVER DESPESAS",softWrap: true,style: TextStyle(
-                  fontSize: 20
-                ))),
-                Expanded(child: Container(alignment: Alignment.center,child: FutureBuilder(
-                  future: QueryData.listarSpents(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done &&
-                        snapshot.hasData) {
-                      return ListView.builder(
-                          itemCount: snapshot.requireData.length,
-                          itemBuilder: (context, index) {
-                            Spent s = snapshot.requireData[index];
-                            return buildRemovable(s);
-                          });
-                    } else {
-                      return Container(alignment: Alignment.center,child: const CircularProgressIndicator());
-                    }
-                  },
-                ))),
-                Expanded(child: TextButton(onPressed: cancel, child: const Text("VOLTAR")),)
+                const Expanded(
+                    child: Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text("REMOVER DESPESAS",
+                            softWrap: true, style: TextStyle(fontSize: 20)))),
+                Expanded(
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: FutureBuilder(
+                          future: QueryData.listarSpents(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                    ConnectionState.done &&
+                                snapshot.hasData) {
+                              return ListView.builder(
+                                  itemCount: snapshot.requireData.length,
+                                  itemBuilder: (context, index) {
+                                    Spent s = snapshot.requireData[index];
+                                    return buildRemovable(s);
+                                  });
+                            } else {
+                              return Container(
+                                  alignment: Alignment.center,
+                                  child: const CircularProgressIndicator());
+                            }
+                          },
+                        ))),
+                Expanded(
+                  child: TextButton(
+                      onPressed: cancel, child: const Text("VOLTAR")),
+                )
               ]),
             )));
   }
